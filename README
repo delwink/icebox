@@ -1,0 +1,27 @@
+IceBox
+======
+
+IceBox is an inventory management application designed for use in family-owned
+restaurants. Advantages over handwritten or spreadsheet inventory management
+include reorder notification and waste ratio reporting.
+
+Hacking
+-------
+
+The IceBox source code uses the official code style for Java with a soft limit
+on 80 columns per line in the source code. Given the verbosity of Java, some
+leniency is given for particularly long lines, but try to make your code the
+most readable over the must succinct.
+
+To submit a patch, [submit your diff to Delwink][1], or use GitHub's pull
+request system.
+
+License
+-------
+
+IceBox is free (libre) software, released under the terms of version 3 of the
+GNU Affero General Public License. You are free to copy, modify, and
+redistribute this software and use it for any purpose. See [COPYING](COPYING)
+for details.
+
+[1]: mailto:contribute@delwink.com
