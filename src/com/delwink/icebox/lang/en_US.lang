@@ -1,0 +1,20 @@
+lang.name=English (United States)
+
+ok=OK
+save=Save
+cancel=Cancel
+
+MainWindow.help=Help
+MainWindow.items=Items
+MainWindow.orders=Orders
+MainWindow.quit=Quit
+MainWindow.reorderOnly=Needs Reorder Only
+MainWindow.ReportMenu.name=Report
+MainWindow.SessionMenu.name=Session
+MainWindow.title=IceBox Inventory
+MainWindow.update=Update
+
+Report.soldVsWaste=Sold vs. Waste
+
+Setting.dialogTitle=Settings
+Setting.setlaf=Use Native Look-And-Feel

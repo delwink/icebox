@@ -17,9 +17,181 @@
 
 package com.delwink.icebox;
 
-public class MainWindow {
+import com.delwink.icebox.lang.Lang;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+/**
+ * The main IceBox hub window.
+ * @author David McMackins II
+ */
+public class MainWindow extends JFrame {
+    protected final JButton ITEMS_BUTTON, ORDERS_BUTTON, UPDATE_BUTTON;
+    protected final JCheckBox REORDER_ONLY;
+    protected final JMenu REPORT_MENU, SESSION_MENU;
+    protected final JMenuBar MENU_BAR;
+    protected final JTable INVENTORY_TABLE;
+    
+    /**
+     * Creates a new main IceBox window.
+     */
+    public MainWindow() {
+        super(Lang.get("MainWindow.title"));
+        
+        // menus
+        MENU_BAR = new JMenuBar();
+        setJMenuBar(MENU_BAR);
+        
+        SESSION_MENU = new JMenu(Lang.get("MainWindow.SessionMenu.name"));
+        MENU_BAR.add(SESSION_MENU);
+        
+        JMenuItem settings = new JMenuItem(Lang.get("Setting.dialogTitle"));
+        SESSION_MENU.add(settings);
+        settings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SettingsDialog sd = new SettingsDialog(MainWindow.this);
+                sd.setVisible(true);
+            }
+        });
+        
+        SESSION_MENU.addSeparator();
+        
+        JMenuItem quit = new JMenuItem(Lang.get("MainWindow.quit"));
+        SESSION_MENU.add(quit);
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainWindow.this.dispatchEvent(new WindowEvent(MainWindow.this, WindowEvent.WINDOW_CLOSING));
+            }
+        });
+        
+        REPORT_MENU = new JMenu(Lang.get("MainWindow.ReportMenu.name"));
+        MENU_BAR.add(REPORT_MENU);
+        
+        JMenuItem soldVsWaste = new JMenuItem(Lang.get("Report.soldVsWaste"));
+        REPORT_MENU.add(soldVsWaste);
+        soldVsWaste.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        // top section
+        REORDER_ONLY = new JCheckBox(Lang.get("MainWindow.reorderOnly"));
+        REORDER_ONLY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        JPanel optionBox = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        optionBox.add(REORDER_ONLY);
+        
+        // center section
+        INVENTORY_TABLE = new JTable();
+        
+        JScrollPane inventoryBox = new JScrollPane(INVENTORY_TABLE);
+        
+        // bottom section
+        ITEMS_BUTTON = new JButton(Lang.get("MainWindow.items"));
+        ITEMS_BUTTON.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        ORDERS_BUTTON = new JButton(Lang.get("MainWindow.orders"));
+        ORDERS_BUTTON.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        UPDATE_BUTTON = new JButton(Lang.get("MainWindow.update"));
+        UPDATE_BUTTON.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        JPanel buttonBox = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonBox.add(ITEMS_BUTTON);
+        buttonBox.add(ORDERS_BUTTON);
+        buttonBox.add(UPDATE_BUTTON);
+        
+        // big picture
+        setLayout(new BorderLayout());
+        add(optionBox, BorderLayout.NORTH);
+        add(inventoryBox, BorderLayout.CENTER);
+        add(buttonBox, BorderLayout.SOUTH);
+        
+        // window properties
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                if (isMaximized()) {
+                    Config.put("mainwindow.maximized", "y");
+                } else {
+                    Config.put("mainwindow.maximized", "n");
+                    Config.put("mainwindow.width", String.valueOf(getWidth()));
+                    Config.put("mainwindow.height", String.valueOf(getHeight()));
+                }
+            }
+        });
+        
+        setSize(Integer.parseInt(Config.get("mainwindow.width")),
+                Integer.parseInt(Config.get("mainwindow.height")));
+        
+        if (Config.get("mainwindow.maximized").equals("y"))
+            setMaximized();
+    }
+    
+    public final void setMaximized() {
+        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
+    }
+    
+    public final boolean isMaximized() {
+        return (getExtendedState() & MAXIMIZED_BOTH) == MAXIMIZED_BOTH;
+    }
     
     public static void main(String[] args) {
-        // TODO: instantiate MainWindow to start application
+        try {
+            Lang.setLang(Config.get("lang") + ".lang");
+        } catch (FileNotFoundException ignored) {
+        }
+        
+        if (Config.get("setlaf").equals("y")) {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                System.err.println("Failed to set look and feel");
+            }
+        }
+        
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.setVisible(true);
     }
 }
