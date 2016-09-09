@@ -39,6 +39,7 @@ public class SettingsDialog extends JDialog {
     public SettingsDialog(Frame parent) {
         super(parent, Lang.get("Setting.dialogTitle"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setModal(true);
         
         SETLAF = new JCheckBox(Lang.get("Setting.setlaf"));
         SETLAF.setSelected(Config.get("setlaf").equals("y"));
