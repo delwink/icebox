@@ -45,8 +45,8 @@ public final class Config {
         PROPERTIES.setProperty("setlaf", "y");
         
         if (CONFIG_FILE.exists()) {
-            try {
-                PROPERTIES.load(new FileInputStream(CONFIG_FILE));
+            try (FileInputStream stream = new FileInputStream(CONFIG_FILE)) {
+                PROPERTIES.load(stream);
             } catch (IOException ex) {
                 System.err.println("Failed to load config file");
             }

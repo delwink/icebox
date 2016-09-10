@@ -18,13 +18,18 @@
 package com.delwink.icebox;
 
 import com.delwink.icebox.lang.Lang;
+import com.delwink.icebox.table.MainWindowTableModel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -36,12 +41,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  * The main IceBox hub window.
  * @author David McMackins II
  */
 public class MainWindow extends JFrame {
+    protected final Inventory INVENTORY;
     protected final JButton ITEMS_BUTTON, ORDERS_BUTTON, UPDATE_BUTTON;
     protected final JCheckBox REORDER_ONLY;
     protected final JMenu REPORT_MENU, SESSION_MENU;
@@ -50,9 +58,11 @@ public class MainWindow extends JFrame {
     
     /**
      * Creates a new main IceBox window.
+     * @param inventory The inventory tracked in this window.
      */
-    public MainWindow() {
+    public MainWindow(Inventory inventory) {
         super(Lang.get("MainWindow.title"));
+        INVENTORY = inventory;
         
         // menus
         MENU_BAR = new JMenuBar();
@@ -107,8 +117,7 @@ public class MainWindow extends JFrame {
         optionBox.add(REORDER_ONLY);
         
         // center section
-        INVENTORY_TABLE = new JTable();
-        
+        INVENTORY_TABLE = new JTable(new MainWindowTableModel(INVENTORY));
         JScrollPane inventoryBox = new JScrollPane(INVENTORY_TABLE);
         
         // bottom section
@@ -177,7 +186,7 @@ public class MainWindow extends JFrame {
         return (getExtendedState() & MAXIMIZED_BOTH) == MAXIMIZED_BOTH;
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
         try {
             Lang.setLang(Config.get("lang") + ".lang");
         } catch (FileNotFoundException ignored) {
@@ -191,7 +200,17 @@ public class MainWindow extends JFrame {
             }
         }
         
-        MainWindow mainWindow = new MainWindow();
+        Inventory inventory;
+        File inventoryFile = DataDir.INVENTORY_FILE;
+        if (inventoryFile.exists()) {
+            try (FileInputStream stream = new FileInputStream(inventoryFile)) {
+                inventory = new Inventory(stream);
+            }
+        } else {
+            inventory = new Inventory();
+        }
+        
+        MainWindow mainWindow = new MainWindow(inventory);
         mainWindow.setVisible(true);
     }
 }

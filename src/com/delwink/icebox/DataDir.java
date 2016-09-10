@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
  * @author David McMackins II
  */
 public final class DataDir {
+    public static final File INVENTORY_FILE = getDataFile("inventory.xml");
+    
     private static File rootDir = null;
     
     /**

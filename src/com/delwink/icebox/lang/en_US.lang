@@ -4,6 +4,8 @@ ok=OK
 save=Save
 cancel=Cancel
 
+MainWindow.column0=Item
+MainWindow.column1=# in Stock
 MainWindow.help=Help
 MainWindow.items=Items
 MainWindow.orders=Orders
