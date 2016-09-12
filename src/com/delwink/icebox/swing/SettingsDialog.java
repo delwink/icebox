@@ -19,7 +19,6 @@ package com.delwink.icebox.swing;
 
 import com.delwink.icebox.Config;
 import com.delwink.icebox.lang.Lang;
-import com.delwink.icebox.swing.JDialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -34,8 +33,8 @@ import javax.swing.JPanel;
  * @author David McMackins II
  */
 public class SettingsDialog extends JDialog {
-    protected final JButton CANCEL_BUTTON, OK_BUTTON;
-    protected final JCheckBox SETLAF;
+    private final JButton CANCEL_BUTTON, OK_BUTTON;
+    private final JCheckBox SETLAF;
     
     public SettingsDialog(Frame parent) {
         super(parent, Lang.get("Setting.dialogTitle"));

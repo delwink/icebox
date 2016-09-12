@@ -31,7 +31,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -52,12 +51,12 @@ import org.xml.sax.SAXException;
  * @author David McMackins II
  */
 public class MainWindow extends JFrame {
-    protected final Inventory INVENTORY;
-    protected final JButton ITEMS_BUTTON, ORDERS_BUTTON, UPDATE_BUTTON;
-    protected final JCheckBox REORDER_ONLY;
-    protected final JMenu REPORT_MENU, SESSION_MENU;
-    protected final JMenuBar MENU_BAR;
-    protected final JTable INVENTORY_TABLE;
+    private final Inventory INVENTORY;
+    private final JButton ITEMS_BUTTON, ORDERS_BUTTON, UPDATE_BUTTON;
+    private final JCheckBox REORDER_ONLY;
+    private final JMenu REPORT_MENU, SESSION_MENU;
+    private final JMenuBar MENU_BAR;
+    private final JTable INVENTORY_TABLE;
     
     /**
      * Creates a new main IceBox window.
