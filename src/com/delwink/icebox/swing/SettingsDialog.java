@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.delwink.icebox;
+package com.delwink.icebox.swing;
 
+import com.delwink.icebox.Config;
 import com.delwink.icebox.lang.Lang;
 import com.delwink.icebox.swing.JDialog;
 import java.awt.FlowLayout;
