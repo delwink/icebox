@@ -5,6 +5,18 @@ IceBox is an inventory management application designed for use in family-owned
 restaurants. Advantages over handwritten or spreadsheet inventory management
 include reorder notification and waste ratio reporting.
 
+Build
+-----
+
+The NetBeans IDE is used in developing this application, which generates `ant`
+build scripts by default. You can either load the project in NetBeans yourself,
+or you can build with `ant` like so:
+
+    $ ant clean jar
+
+The environment variable `JAVA_HOME` needs to point to a valid JDK for the
+command-line build to work.
+
 Hacking
 -------
 
