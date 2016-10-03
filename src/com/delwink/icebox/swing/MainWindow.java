@@ -127,7 +127,8 @@ public class MainWindow extends JFrame {
         ITEMS_BUTTON.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                InventoryItemEditor editor = new InventoryItemEditor(MainWindow.this, INVENTORY);
+                editor.setVisible(true);
             }
         });
         

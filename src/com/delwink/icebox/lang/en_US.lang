@@ -4,6 +4,11 @@ ok=OK
 save=Save
 cancel=Cancel
 
+InventoryItemEditor.column0=Item
+InventoryItemEditor.column1=Unit
+InventoryItemEditor.column2=Reorder At
+InventoryItemEditor.title=Edit Items
+
 MainWindow.column0=Item
 MainWindow.column1=# in Stock
 MainWindow.help=Help

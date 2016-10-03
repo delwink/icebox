@@ -20,16 +20,17 @@ package com.delwink.icebox.table;
 import com.delwink.icebox.Inventory;
 import com.delwink.icebox.InventoryItem;
 import com.delwink.icebox.lang.Lang;
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Table model designed for the IceBox main window.
+ * Table model for the inventory item editor.
  * @author David McMackins II
  */
-public class MainWindowTableModel extends AbstractTableModel {
+public class InventoryItemTableModel extends AbstractTableModel {
     private final Inventory INVENTORY;
     
-    public MainWindowTableModel(Inventory inventory) {
+    public InventoryItemTableModel(Inventory inventory) {
         INVENTORY = inventory;
     }
 
@@ -40,41 +41,72 @@ public class MainWindowTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return Lang.get("MainWindow.column" + columnIndex);
+        return Lang.get("InventoryItemEditor.column" + columnIndex);
     }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return String.class;
+        switch (columnIndex) {
+        case 0:
+        case 1:
+            return String.class;
+            
+        case 2:
+            return Integer.class;
+            
+        default:
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
-    public Object getValueAt(int i, int j) {
-        InventoryItem item = null;
-        for (InventoryItem temp : INVENTORY.getItems()) {
-            if (i-- == 0) {
-                item = temp;
-                break;
-            }
-        }
+    public boolean isCellEditable(int arg0, int arg1) {
+        return true;
+    }
+
+    @Override
+    public Object getValueAt(int row, int column) {
+        InventoryItem item = new ArrayList<>(INVENTORY.getItems()).get(row);
         
-        if (item == null)
-            throw new IndexOutOfBoundsException();
-        
-        switch (j) {
+        switch (column) {
         case 0:
             return item.getName();
             
         case 1:
-            return String.valueOf(item.getStock());
+            return item.getUnit();
+            
+        case 2:
+            return item.getReorderAt();
             
         default:
-            return new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
+    @Override
+    public void setValueAt(Object o, int row, int column) {
+        InventoryItem item = new ArrayList<>(INVENTORY.getItems()).get(row);
+        
+        switch (column) {
+        case 0:
+            item.setName((String) o);
+            break;
+            
+        case 1:
+            item.setUnit((String) o);
+            break;
+            
+        case 2:
+            item.setReorderAt((Integer) o);
+            break;
+        
+        default:
+            throw new IndexOutOfBoundsException();
         }
     }
 }

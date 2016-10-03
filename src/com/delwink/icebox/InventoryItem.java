@@ -93,6 +93,6 @@ public class InventoryItem implements Comparable<InventoryItem> {
     @Override
     public String toString() {
         return "<item id=\"" + getID() + "\" name=\"" + getName() + "\" "
-                + "unit=\"" + getUnit() + "\" reorder=\"" + getReorderAt() + "/>";
+                + "unit=\"" + getUnit() + "\" reorder=\"" + getReorderAt() + "\"/>";
     }
 }
