@@ -201,6 +201,10 @@ public class Inventory {
         ITEMS.put(item.getID(), item);
     }
     
+    public void deleteItem(int id) {
+        ITEMS.remove(id);
+    }
+    
     public Collection<InventoryItem> getItems() {
         return ITEMS.values();
     }
@@ -217,10 +221,6 @@ public class Inventory {
         
         if (ITEMS.isEmpty())
             return 0;
-        
-//        for (Integer id : ITEMS.keySet())
-//            if (!ITEMS.containsKey(id + 1))
-//                return id + 1;
         
         throw new IllegalStateException("Could not find next item ID");
     }
