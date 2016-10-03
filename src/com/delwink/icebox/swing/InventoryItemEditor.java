@@ -64,7 +64,6 @@ public class InventoryItemEditor extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 InventoryItem item = new InventoryItem(INVENTORY.getNextID());
                 ADDED.add(item);
-                INVENTORY.addNewItem(item);
             }
         });
         
