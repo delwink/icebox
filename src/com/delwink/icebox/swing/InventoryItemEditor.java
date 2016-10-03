@@ -27,6 +27,8 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -64,25 +66,35 @@ public class InventoryItemEditor extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 InventoryItem item = new InventoryItem(INVENTORY.getNextID());
                 ADDED.add(item);
+                INVENTORY.addNewItem(item);
+                TABLE.setModel(new InventoryItemTableModel(INVENTORY));
+            }
+        });
+        
+        final ActionListener cancelListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (InventoryItem item : ADDED)
+                    INVENTORY.deleteItem(item.getID());
+                
+                dispose();
+            }
+        };
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                cancelListener.actionPerformed(null);
             }
         });
         
         CANCEL_BUTTON = new JButton(Lang.get("cancel"));
-        CANCEL_BUTTON.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        CANCEL_BUTTON.addActionListener(cancelListener);
         
         SAVE_BUTTON = new JButton(Lang.get("save"));
         SAVE_BUTTON.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (InventoryItem item : ADDED) {
-                    INVENTORY.addNewItem(item);
-                }
-                
                 for (Change change : CHANGES) {
                     InventoryItem item = change.getItem();
                     
