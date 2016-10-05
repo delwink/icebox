@@ -141,6 +141,10 @@ public class InventoryItemEditor extends JDialog {
         centorOnParent();
     }
     
+    public void addSaveListener(ActionListener al) {
+        SAVE_BUTTON.addActionListener(al);
+    }
+    
     private static class Change {
         private final InventoryItem ITEM;
         private final Object DATA;

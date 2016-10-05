@@ -128,6 +128,14 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 InventoryItemEditor editor = new InventoryItemEditor(MainWindow.this, INVENTORY);
+                
+                editor.addSaveListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY));
+                    }
+                });
+                
                 editor.setVisible(true);
             }
         });
