@@ -74,12 +74,14 @@ public class Inventory {
             for (int i = 0; i < items.getLength(); ++i) {
                 Element item = (Element) items.item(i);
                 
-                int id = Integer.parseInt(item.getAttribute("id"));
-                int reorderAt = Integer.parseInt(item.getAttribute("reorder"));
-                String name = item.getAttribute("name");
-                String unit = item.getAttribute("unit");
-                
-                addNewItem(new InventoryItem(id, name, unit, reorderAt));
+                if (item.getParentNode().isSameNode(root)) { // make sure it's top-level
+                    int id = Integer.parseInt(item.getAttribute("id"));
+                    int reorderAt = Integer.parseInt(item.getAttribute("reorder"));
+                    String name = item.getAttribute("name");
+                    String unit = item.getAttribute("unit");
+
+                    addNewItem(new InventoryItem(id, name, unit, reorderAt));
+                }
             }
         }
         
@@ -90,7 +92,7 @@ public class Inventory {
                 
                 String orderNumber = order.getAttribute("num");
                 Date orderDate = new Date(Long.parseLong(order.getAttribute("date")));
-                Order newOrder = new Order(orderNumber, orderDate);
+                Order newOrder = new Order(this, orderNumber, orderDate);
                 
                 NodeList items = order.getElementsByTagName("item");
                 for (int j = 0; j < items.getLength(); ++j) {
@@ -99,7 +101,7 @@ public class Inventory {
                     int id = Integer.parseInt(item.getAttribute("id"));
                     int qty = Integer.parseInt(item.getAttribute("qty"));
                     
-                    newOrder.addItem(id, qty);
+                    newOrder.setItem(id, qty);
                 }
                 
                 addOrder(newOrder);
@@ -173,6 +175,21 @@ public class Inventory {
         writer.flush();
     }
     
+    public void refreshQuantities() {
+        for (InventoryItem item : ITEMS.values())
+            item.addStock(-item.getStock()); // clear stock before refreshing
+        
+        List<Order> orders = new ArrayList<>(ORDERS);
+        ORDERS.clear();
+        for (Order order : orders)
+            addOrder(order);
+        
+        List<QuantityUpdate> updates = new ArrayList<>(UPDATES);
+        UPDATES.clear();
+        for (QuantityUpdate update : updates)
+            addUpdate(update);
+    }
+    
     public final void addOrder(Order order) {
         ORDERS.add(order);
         
@@ -185,6 +202,10 @@ public class Inventory {
         }
     }
     
+    public List<Order> getOrders() {
+        return ORDERS;
+    }
+    
     public final void addUpdate(QuantityUpdate update) {
         UPDATES.add(update);
         
@@ -195,6 +216,10 @@ public class Inventory {
             
             affectedItem.addStock(-(record.getSold() + record.getWaste()));
         }
+    }
+    
+    public List<QuantityUpdate> getUpdates() {
+        return UPDATES;
     }
     
     public final void addNewItem(InventoryItem item) {

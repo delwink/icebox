@@ -144,7 +144,17 @@ public class MainWindow extends JFrame {
         ORDERS_BUTTON.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                OrderListDialog dialog = new OrderListDialog(MainWindow.this, INVENTORY);
+                
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        INVENTORY.refreshQuantities();
+                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY));
+                    }
+                });
+                
+                dialog.setVisible(true);
             }
         });
         

@@ -17,9 +17,12 @@
 
 package com.delwink.icebox;
 
+import com.delwink.icebox.lang.Lang;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,39 +30,68 @@ import java.util.Map;
  * @author David McMackins II
  */
 public class Order implements Iterable<Integer> {
-    protected final Map<Integer, Integer> ITEMS;
+    protected final List<InventoryItem> ITEMS;
+    protected final Map<Integer, Integer> BOM;
     protected Date orderDate;
     protected String orderNumber;
     
     /**
      * Creates a new empty order.
+     * @param inventory The inventory for this order.
      * @param orderNumber Identifier for this order.
      * @param orderDate The date of this order.
      */
-    public Order(String orderNumber, Date orderDate) {
-        ITEMS = new HashMap<>();
+    public Order(Inventory inventory, String orderNumber, Date orderDate) {
+        ITEMS = new ArrayList<>(inventory.getItems());
+        BOM = new HashMap<>();
         this.orderDate = orderDate;
         this.orderNumber = orderNumber;
     }
     
     /**
      * Creates a new empty order.
+     * @param inventory The inventory for this order.
      */
-    public Order() {
-        this("", new Date());
+    public Order(Inventory inventory) {
+        this(inventory, Lang.get("Order.new"), new Date());
     }
     
     /**
-     * Adds an item to this order.
+     * Sets the quantity of an item on this order (adds if item not on order).
      * @param itemID ID of the item to be added.
      * @param qty Quantity of the item to be added.
      */
-    public void addItem(int itemID, int qty) {
-        ITEMS.put(itemID, qty);
+    public void setItem(int itemID, int qty) {
+        BOM.put(itemID, qty);
+    }
+    
+    /**
+     * Gets an item from the order by index.
+     * @param i The index of the item.
+     * @return The InventoryItem at index i.
+     */
+    public InventoryItem getItem(int i) {
+        for (Integer id : BOM.keySet()) {
+            if (i == 0) {
+                for (InventoryItem item : ITEMS)
+                    if (item.getID() == id)
+                        return item;
+                
+                throw new IndexOutOfBoundsException();
+            }
+            
+            --i;
+        }
+        
+        throw new IndexOutOfBoundsException();
+    }
+    
+    public int getItemCount() {
+        return BOM.size();
     }
     
     public int getQuantityByID(int itemID) {
-        return ITEMS.get(itemID);
+        return BOM.get(itemID);
     }
 
     public Date getOrderDate() {
@@ -80,6 +112,6 @@ public class Order implements Iterable<Integer> {
 
     @Override
     public Iterator<Integer> iterator() {
-        return ITEMS.keySet().iterator();
+        return BOM.keySet().iterator();
     }
 }

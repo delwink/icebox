@@ -21,6 +21,18 @@ MainWindow.SessionMenu.name=Session
 MainWindow.title=IceBox Inventory
 MainWindow.update=Update
 
+Order.date=Order Date
+Order.new=New Order
+Order.number=Order #
+
+OrderEditor.column0=Item
+OrderEditor.column1=Qty
+OrderEditor.title=Edit Order
+
+OrderList.column0=Order #
+OrderList.column1=Order Date
+OrderList.title=Manage Orders
+
 Report.soldVsWaste=Sold vs. Waste
 
 Setting.dialogTitle=Settings
