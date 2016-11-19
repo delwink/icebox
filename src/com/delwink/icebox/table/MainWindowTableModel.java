@@ -20,6 +20,8 @@ package com.delwink.icebox.table;
 import com.delwink.icebox.Inventory;
 import com.delwink.icebox.InventoryItem;
 import com.delwink.icebox.lang.Lang;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -27,15 +29,22 @@ import javax.swing.table.AbstractTableModel;
  * @author David McMackins II
  */
 public class MainWindowTableModel extends AbstractTableModel {
-    private final Inventory INVENTORY;
+    private final List<InventoryItem> ITEMS;
     
-    public MainWindowTableModel(Inventory inventory) {
-        INVENTORY = inventory;
+    public MainWindowTableModel(Inventory inventory, boolean reorderOnly) {
+        if (reorderOnly) {
+            ITEMS = new ArrayList<>();
+            for (InventoryItem item : inventory.getItems())
+                if (item.getStock() <= item.getReorderAt())
+                    ITEMS.add(item);
+        } else {
+            ITEMS = new ArrayList<>(inventory.getItems());
+        }
     }
 
     @Override
     public int getRowCount() {
-        return INVENTORY.getItems().size();
+        return ITEMS.size();
     }
 
     @Override
@@ -56,7 +65,7 @@ public class MainWindowTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int i, int j) {
         InventoryItem item = null;
-        for (InventoryItem temp : INVENTORY.getItems()) {
+        for (InventoryItem temp : ITEMS) {
             if (i-- == 0) {
                 item = temp;
                 break;

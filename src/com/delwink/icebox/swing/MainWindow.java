@@ -111,7 +111,7 @@ public class MainWindow extends JFrame {
         REORDER_ONLY.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY, REORDER_ONLY.isSelected()));
             }
         });
         
@@ -119,7 +119,7 @@ public class MainWindow extends JFrame {
         optionBox.add(REORDER_ONLY);
         
         // center section
-        INVENTORY_TABLE = new JTable(new MainWindowTableModel(INVENTORY));
+        INVENTORY_TABLE = new JTable(new MainWindowTableModel(INVENTORY, false));
         JScrollPane inventoryBox = new JScrollPane(INVENTORY_TABLE);
         
         // bottom section
@@ -132,7 +132,7 @@ public class MainWindow extends JFrame {
                 editor.addSaveListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY));
+                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY, REORDER_ONLY.isSelected()));
                     }
                 });
                 
@@ -150,7 +150,7 @@ public class MainWindow extends JFrame {
                     @Override
                     public void windowClosed(WindowEvent e) {
                         INVENTORY.refreshQuantities();
-                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY));
+                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY, REORDER_ONLY.isSelected()));
                     }
                 });
                 
