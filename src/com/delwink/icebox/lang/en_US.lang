@@ -33,6 +33,11 @@ OrderList.column0=Order #
 OrderList.column1=Order Date
 OrderList.title=Manage Orders
 
+QuantityUpdate.column0=Item
+QuantityUpdate.column1=# Sold
+QuantityUpdate.column2=# Waste
+QuantityUpdate.title=New Quantity Update
+
 Report.soldVsWaste=Sold vs. Waste
 
 Setting.dialogTitle=Settings

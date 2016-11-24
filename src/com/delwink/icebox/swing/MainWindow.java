@@ -162,7 +162,17 @@ public class MainWindow extends JFrame {
         UPDATE_BUTTON.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                QuantityUpdateDialog dialog = new QuantityUpdateDialog(MainWindow.this, INVENTORY);
+                
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        INVENTORY.refreshQuantities();
+                        INVENTORY_TABLE.setModel(new MainWindowTableModel(INVENTORY, REORDER_ONLY.isSelected()));
+                    }
+                });
+                
+                dialog.setVisible(true);
             }
         });
         

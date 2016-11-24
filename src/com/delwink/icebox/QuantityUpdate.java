@@ -61,6 +61,10 @@ public class QuantityUpdate implements Iterable<Record>  {
     public void setDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+    
+    public List<Record> getRecords() {
+        return RECORDS;
+    }
 
     @Override
     public Iterator<Record> iterator() {
