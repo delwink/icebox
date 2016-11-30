@@ -102,7 +102,8 @@ public class MainWindow extends JFrame {
         soldVsWaste.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                SoldVsWasteReportDialog dialog = new SoldVsWasteReportDialog(MainWindow.this, INVENTORY);
+                dialog.setVisible(true);
             }
         });
         

@@ -38,7 +38,12 @@ QuantityUpdate.column1=# Sold
 QuantityUpdate.column2=# Waste
 QuantityUpdate.title=New Quantity Update
 
+Report.results=Report Results
 Report.soldVsWaste=Sold vs. Waste
 
 Setting.dialogTitle=Settings
 Setting.setlaf=Use Native Look-And-Feel
+
+SoldVsWaste.column0=Item
+SoldVsWaste.column1=# Sold
+SoldVsWaste.column2=# Waste
