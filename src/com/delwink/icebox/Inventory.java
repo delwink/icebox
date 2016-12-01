@@ -159,6 +159,8 @@ public class Inventory {
             writer.println("  </order>");
         }
         
+        writer.println();
+        
         for (QuantityUpdate update : UPDATES) {
             writer.println("  <update date=\"" + update.getDate().getTime() + "\">");
             
