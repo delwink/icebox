@@ -53,6 +53,11 @@ public class OrderListDialog extends JDialog {
     private final JTable LIST_TABLE;
     private final Inventory INVENTORY;
     
+    /**
+     * Creates a new list dialog.
+     * @param parent The parent frame of this dialog.
+     * @param inventory The inventory whose orders will be listed.
+     */
     public OrderListDialog(final Frame parent, Inventory inventory) {
         super(parent, Lang.get("OrderList.title"));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

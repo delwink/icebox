@@ -177,6 +177,9 @@ public class Inventory {
         writer.flush();
     }
     
+    /**
+     * Refreshes the quantities of items in stock based on orders and updates.
+     */
     public void refreshQuantities() {
         for (InventoryItem item : ITEMS.values())
             item.addStock(-item.getStock()); // clear stock before refreshing
@@ -192,6 +195,10 @@ public class Inventory {
             addUpdate(update);
     }
     
+    /**
+     * Adds an order to this inventory stock.
+     * @param order The order to be added.
+     */
     public final void addOrder(Order order) {
         ORDERS.add(order);
         
@@ -208,6 +215,10 @@ public class Inventory {
         return ORDERS;
     }
     
+    /**
+     * Adds a quantity update to this inventory's stock.
+     * @param update The update to be added.
+     */
     public final void addUpdate(QuantityUpdate update) {
         UPDATES.add(update);
         
@@ -240,6 +251,10 @@ public class Inventory {
         return ITEMS.get(id);
     }
     
+    /**
+     * Finds the next unused item ID.
+     * @return The next available item ID for use.
+     */
     public int getNextID() {
         Set<Integer> keys = ITEMS.keySet();
         for (int i = 0; i <= keys.size(); ++i)

@@ -54,6 +54,11 @@ public class QuantityUpdateDialog extends JDialog {
     private final JTable TABLE;
     private final QuantityUpdate UPDATE;
     
+    /**
+     * Creates a new quantity update for editing.
+     * @param parent The parent frame of this dialog.
+     * @param inventory The inventory to which this update will apply.
+     */
     public QuantityUpdateDialog(Frame parent, Inventory inventory) {
         super(parent, Lang.get("QuantityUpdate.title"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -134,5 +139,4 @@ public class QuantityUpdateDialog extends JDialog {
         pack();
         centorOnParent();
     }
-    
 }

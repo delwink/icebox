@@ -60,6 +60,12 @@ public class OrderEditor extends JDialog {
     
     private boolean orderNumberChanged = false;
     
+    /**
+     * Creates a new editor.
+     * @param parent The parent frame of this dialog.
+     * @param inventory The inventory to which this order applies.
+     * @param order The order to be edited.
+     */
     public OrderEditor(Frame parent, Inventory inventory, Order order) {
         super(parent, Lang.get("OrderEditor.title"));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

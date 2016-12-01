@@ -38,10 +38,21 @@ public class ReportResultsDialog extends JDialog {
     private final JButton OK_BUTTON;
     private final JTable TABLE;
     
+    /**
+     * Creates a new results dialog.
+     * @param parent The parent frame of this dialog.
+     * @param model The table model to be used for the results.
+     */
     public ReportResultsDialog(Frame parent, Model model) {
         this(parent, Lang.get("Report.results"), model);
     }
     
+    /**
+     * Creates a new results dialog with a custom window title.
+     * @param parent The parent frame of this dialog.
+     * @param title The title of the dialog window.
+     * @param model The table model to be used for the results.
+     */
     public ReportResultsDialog(Frame parent, String title, Model model) {
         super(parent, title);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

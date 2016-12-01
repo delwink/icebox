@@ -20,6 +20,10 @@ package com.delwink.icebox.swing;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+/**
+ * A listener for text changing in a field.
+ * @author David McMackins II
+ */
 public abstract class TextChangeListener implements DocumentListener {
     @Override
     public void insertUpdate(DocumentEvent e) {
@@ -36,5 +40,9 @@ public abstract class TextChangeListener implements DocumentListener {
         textChanged(e);
     }
     
+    /**
+     * Called when text is changed.
+     * @param e The event captured.
+     */
     public abstract void textChanged(DocumentEvent e);
 }

@@ -31,6 +31,10 @@ public class QuantityUpdate implements Iterable<Record>  {
     protected final List<Record> RECORDS;
     protected Date updateDate;
     
+    /**
+     * Creates a new quantity update with a specific date.
+     * @param date The date of this update.
+     */
     public QuantityUpdate(Date date) {
         RECORDS = new ArrayList<>();
         updateDate = date;

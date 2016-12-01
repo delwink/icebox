@@ -25,6 +25,9 @@ import java.io.FileNotFoundException;
  * @author David McMackins II
  */
 public final class DataDir {
+    /**
+     * A File object referring to the file which stores the inventory data.
+     */
     public static final File INVENTORY_FILE = getDataFile("inventory.xml");
     
     private static File rootDir = null;
@@ -71,7 +74,7 @@ public final class DataDir {
         }
     }
     
-    private static boolean isWinblows() {
+    private static boolean isWinblows() { // tee hee
         return System.getProperty("os.name").toLowerCase().startsWith("win");
     }
 }

@@ -36,6 +36,10 @@ public class SettingsDialog extends JDialog {
     private final JButton CANCEL_BUTTON, OK_BUTTON;
     private final JCheckBox SETLAF;
     
+    /**
+     * Creates a new settings dialog.
+     * @param parent The parent frame of this dialog.
+     */
     public SettingsDialog(Frame parent) {
         super(parent, Lang.get("Setting.dialogTitle"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

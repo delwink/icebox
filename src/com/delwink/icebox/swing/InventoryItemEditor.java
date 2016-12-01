@@ -41,6 +41,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+/**
+ * A dialog for managing inventory items.
+ * @author David McMackins II
+ */
 public class InventoryItemEditor extends JDialog {
     private final List<Change> CHANGES;
     private final Inventory INVENTORY;
@@ -48,6 +52,11 @@ public class InventoryItemEditor extends JDialog {
     private final JButton ADD_BUTTON, CANCEL_BUTTON, SAVE_BUTTON;
     private final JTable TABLE;
     
+    /**
+     * Creates a new dialog.
+     * @param parent The parent frame of this dialog.
+     * @param inventory The inventory for editing.
+     */
     public InventoryItemEditor(Frame parent, Inventory inventory) {
         super(parent, Lang.get("InventoryItemEditor.title"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

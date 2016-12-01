@@ -18,7 +18,6 @@
 package com.delwink.icebox.swing;
 
 import com.delwink.icebox.Inventory;
-import com.delwink.icebox.InventoryItem;
 import com.delwink.icebox.QuantityUpdate;
 import com.delwink.icebox.lang.Lang;
 import com.github.lgooddatepicker.components.DatePicker;
@@ -44,6 +43,11 @@ public class SoldVsWasteReportDialog extends JDialog {
     private final DatePicker START_DATE_FIELD, END_DATE_FIELD;
     private final JButton CANCEL_BUTTON, OK_BUTTON;
     
+    /**
+     * Opens a dialog for running the sold versus waste report.
+     * @param parent The parent frame of this dialog.
+     * @param inventory The inventory on which to report.
+     */
     public SoldVsWasteReportDialog(final Frame parent, final Inventory inventory) {
         super(parent, Lang.get("Report.soldVsWaste"));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
